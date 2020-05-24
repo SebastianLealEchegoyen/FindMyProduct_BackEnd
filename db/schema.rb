@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_083205) do
+ActiveRecord::Schema.define(version: 2020_05_24_041955) do
 
   create_table "list_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_05_23_083205) do
     t.string "photo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_Admin"
   end
 
 end

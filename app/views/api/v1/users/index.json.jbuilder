@@ -1,0 +1,1 @@
+json.users @users, :id, :username, :password, :email, :phone, :photo

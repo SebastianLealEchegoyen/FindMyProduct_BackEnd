@@ -11,7 +11,7 @@
    # {username: 'Hugo',password: 'carbono',email: 'Cugo@gmail.com',phone: '12334568', photo:'link'}])
 
 # List.delete_all
-# List.create({name:'TestList',quantity:0})
+List.create({name:'TestList2',quantity:5})
 
-Product.delete_all
-Product.create({name:'Maxipizza',category:'kg',quantity:4,photo:'link',list_id:1})
+#Product.delete_all
+#Product.create({name:'Maxipizza',category:'kg',quantity:4,photo:'link',list_id:1})

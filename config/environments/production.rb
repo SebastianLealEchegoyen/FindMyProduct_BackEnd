@@ -3,7 +3,8 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.action_cable.url = 'ws://findmyproduct-api.herokuapp.com/api/v1/cable'
+  config.web_socket_server_url = 'wss://findmyproduct-api.herokuapp.com/api/v1/cable'
+  config.action_cable.url = 'wss://findmyproduct-api.herokuapp.com/api/v1/cable'
   config.action_cable.allowed_request_origins = [ 'https://findmyproduct-api.herokuapp.com' ]
 
   # Eager load code on boot. This eager loads most of Rails and

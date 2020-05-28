@@ -1,1 +1,1 @@
-json.lists @lists, :id, :name, :quantity
+json.lists @lists, :id, :name, :quantity, :products

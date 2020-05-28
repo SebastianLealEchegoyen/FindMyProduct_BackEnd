@@ -10,9 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_041955) do
+ActiveRecord::Schema.define(version: 2020_05_28_115759) do
 
-  create_table "list_users", id: false, force: :cascade do |t|
+  create_table "list_products", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "list_id", null: false
+  end
+
+  create_table "list_users", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "list_id", null: false
   end

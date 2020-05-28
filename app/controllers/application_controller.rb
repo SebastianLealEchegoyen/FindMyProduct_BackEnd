@@ -30,5 +30,6 @@ class ApplicationController < ActionController::API
     def load_current_user!
       @current_user = User.find_by(id: payload[0]['user_id'])
     end
+
   
 end

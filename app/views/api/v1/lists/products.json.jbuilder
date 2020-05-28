@@ -1,0 +1,1 @@
+json.list @list, :products

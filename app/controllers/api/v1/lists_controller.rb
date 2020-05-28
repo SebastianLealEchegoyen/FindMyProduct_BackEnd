@@ -30,6 +30,16 @@ def create
     render json: {status: "added product successfully"}, status: 201
   end
 
+  def destroy
+    @List= List.find(params[:id])
+    if @List.destroy
+      render json: { message: "List Successfully Deleted." }, status: 200
+    else
+      list_not_found
+    end
+ 
+  end
+
 
   private
   def list_params

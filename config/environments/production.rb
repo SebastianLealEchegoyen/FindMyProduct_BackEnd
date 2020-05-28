@@ -5,7 +5,7 @@ Rails.application.configure do
   config.cache_classes = true
   config.web_socket_server_url = 'wss://findmyproduct-api.herokuapp.com/api/v1/cable'
   config.action_cable.url = 'wss://findmyproduct-api.herokuapp.com/api/v1/cable'
-  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+  config.action_cable.allowed_request_origins = [%r{https?://\S+}]
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers

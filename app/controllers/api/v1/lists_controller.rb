@@ -1,7 +1,7 @@
 class Api::V1::ListsController < ApplicationController
    
             rescue_from ActiveRecord::RecordNotFound, :with => :task_not_found
-            before_action :authenticate_request!, except: [:index]
+            before_action :authenticate_request!, except: [:index,:show]
             before_action :load_current_user!, only: [:create]
 
     def index
@@ -30,6 +30,18 @@ def create
     render json: {status: "added product successfully"}, status: 201
   end
 
+  def update
+    
+      @List=List.find_by(id: params[:id])
+
+      if @List.update(list_params)
+        render json: {status: "list updated"}, status: 201
+      else
+        render :json => { :errors => @list.errors.full_messages }, status: 400
+      end
+  
+  end
+
 
   def destroy
     @List= List.find(params[:id])
@@ -41,6 +53,10 @@ def create
  
   end
 
+  def show
+    @list = List.find_by(id: params[:id])
+
+  end
 
   private
   def list_params

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
       resources :listusers,  only: [:destroy] 
       resources :listproducts, only: [:destroy] 
-      resources :products, only: [:show,:index,:create] 
+      resources :products, only: [:show,:index,:create,:update] 
       resources :users, only: [:create,:index,:update,:show] do
         collection do
           post 'login'

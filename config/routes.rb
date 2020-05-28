@@ -6,6 +6,10 @@ Rails.application.routes.draw do
         collection do
           post 'add'
         end
+
+        member do
+          get 'products'
+        end
      
       end
       resources :listusers,  only: [:destroy] 

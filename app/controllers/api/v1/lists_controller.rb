@@ -42,6 +42,11 @@ def create
   
   end
 
+  def products
+    @list = List.find_by(id: params[:id])
+    
+  end
+
 
   def destroy
     @List= List.find(params[:id])

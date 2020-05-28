@@ -30,6 +30,7 @@ def create
     render json: {status: "added product successfully"}, status: 201
   end
 
+
   def destroy
     @List= List.find(params[:id])
     if @List.destroy

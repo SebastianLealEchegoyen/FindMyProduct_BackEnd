@@ -12,7 +12,7 @@ class ListChannel < ApplicationCable::Channel
     @num=data['id'].to_i
     @user=User.find(@num)
     @lists=@user.lists
-    ActionCable.server.broadcast 'super_channel', message: @lists.id,@lists.name,@lists.products
+    ActionCable.server.broadcast 'super_channel', message: @lists
   end
 end
 

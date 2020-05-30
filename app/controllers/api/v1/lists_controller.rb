@@ -16,9 +16,8 @@ def create
     @current_user.lists << @list
     if @list.save
       render json: {status: "List created successfully"}, status: 201
+      @lists=List.all
       ActionCable.server.broadcast 'super_channel', message: @lists
-      #ActionCable.server.broadcast 'super_channel', user: @current_user.lists
-
     else
       render :json => { :errors => @list.errors.full_messages }, status: :bad_request
     end
@@ -29,6 +28,7 @@ def create
     @product= Product.find_by(name: params[:name])
     @List.products << @product
     render json: {status: "added product successfully"}, status: 201
+    @lists=List.all
     ActionCable.server.broadcast 'super_channel', message: @lists
   end
 
@@ -38,6 +38,7 @@ def create
 
       if @List.update(list_params)
         render json: {status: "list updated"}, status: 201
+        @lists=List.all
         ActionCable.server.broadcast 'super_channel', message: @lists
       else
         render :json => { :errors => @list.errors.full_messages }, status: 400

@@ -14,5 +14,13 @@ class ListChannel < ApplicationCable::Channel
     @lists=@user.lists
     ActionCable.server.broadcast 'super_channel', message: @lists
   end
+
+  def products(data)
+    @num=data['id'].to_i
+    @list=List.find(@num)
+    @products=@list.products
+    ActionCable.server.broadcast 'super_channel', message: @products
+  end
+
 end
 

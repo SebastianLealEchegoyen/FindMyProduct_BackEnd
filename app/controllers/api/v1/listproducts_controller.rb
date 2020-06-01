@@ -25,7 +25,7 @@ end
       @association= ListProduct.find_by(
         list_id: @List.id,
         product_id: @product.id)
-      @association.quantity<<params[:quantity]
+      @association.update_attribute(:quantity, params[:quantity])
       puts(@association.quantity)
 
       render json: {status: "added product successfully"}, status: 201

@@ -1,5 +1,8 @@
-
 class Api::V1::ListproductsController < ApplicationController
+
+    rescue_from ActiveRecord::RecordNotFound, :with => :task_not_found
+    before_action :authenticate_request!, except: [:show]
+    before_action :load_current_user!, only: [:create,:update,:add,:update]
 
     def destroy
         @List = List.find_by(id: params[:id])
@@ -29,9 +32,24 @@ end
       render json: {status: "added product successfully"}, status: 201
       @lists=List.all
       @products=@List.products
-      ActionCable.server.broadcast 'super_channel', message: @lists
-      ActionCable.server.broadcast 'luci_channel', message: @products
+      @User = @current_user
+      @all= @User.lists
+      @message=
+        Jbuilder.encode  do |json|
+        json.info @all do |list|  
+        json.list list.name
+        json.products list.products do |product|
+        json.product_id product.id
+        json.product_name product.name
+        @help= @association= ListProduct.find_by(
+            list_id: list.id,
+            product_id: product.id)
+        json.product_quantity @help.quantity
+        end
     end
+  end
+    ActionCable.server.broadcast 'super_channel', message: @message
+  end
 
     def update
       @List = List.find_by(id: params[:id])

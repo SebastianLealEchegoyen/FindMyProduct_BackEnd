@@ -8,8 +8,7 @@
     #json.name @product.name
     #json.quantity @association.quantity
  # end
-
- json.info @List do |list|
+ @message= json.info @List do |list|
     json.list list.name
     json.products list.products do |product|
     json.product_id product.id
@@ -19,5 +18,5 @@
         product_id: product.id)
     json.product_quantity @help.quantity
     end
-    
 end
+ActionCable.server.broadcast 'super_channel', message: @message

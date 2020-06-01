@@ -11,8 +11,22 @@ class ListChannel < ApplicationCable::Channel
   def message(data)
     @num=data['id'].to_i
     @user=User.find(@num)
-    @lists=@user.lists
-    ActionCable.server.broadcast 'super_channel', message: @lists
+    @all= @user.lists
+    @message=
+      Jbuilder.encode  do |json|
+      json.info @all do |list|  
+      json.list list.name
+      json.products list.products do |product|
+      json.product_id product.id
+      json.product_name product.name
+      @help= @association= ListProduct.find_by(
+          list_id: list.id,
+          product_id: product.id)
+      json.product_quantity @help.quantity
+      end
+  end
+end
+  ActionCable.server.broadcast 'super_channel', message: @message
   end
 
 end

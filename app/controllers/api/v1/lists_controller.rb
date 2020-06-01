@@ -23,14 +23,6 @@ def create
     end
   end
 
-  def add
-    @List = List.find_by(id: params[:id])
-    @product= Product.find_by(name: params[:name])
-    @List.products << @product
-    render json: {status: "added product successfully"}, status: 201
-    @lists=List.all
-    ActionCable.server.broadcast 'super_channel', message: @lists
-  end
 
   def update
     
@@ -56,6 +48,7 @@ def create
     @List= List.find(params[:id])
     if @List.destroy
       render json: { message: "List Successfully Deleted." }, status: 200
+      @lists=List.all
       ActionCable.server.broadcast 'super_channel', message: @lists
     else
       list_not_found

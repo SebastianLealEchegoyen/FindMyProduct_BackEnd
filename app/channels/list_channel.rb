@@ -15,6 +15,7 @@ class ListChannel < ApplicationCable::Channel
     @message=
       Jbuilder.encode  do |json|
       json.info @all do |list|  
+      json.list list.id
       json.list list.name
       json.products list.products do |product|
       json.product_id product.id

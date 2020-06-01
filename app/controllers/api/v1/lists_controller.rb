@@ -13,6 +13,7 @@ class Api::V1::ListsController < ApplicationController
 
 def create
     @list = List.new(list_params)
+    @list.quantity=0
     @current_user.lists << @list
     if @list.save
       render json: {status: "List created successfully"}, status: 201
@@ -112,7 +113,7 @@ def create
 
   private
   def list_params
-    params.require(:list).permit(:name, :quantity)
+    params.require(:list).permit(:name)
   end
 
 

@@ -12,6 +12,8 @@ class Api::V1::ListproductsController < ApplicationController
           list_id: @List.id,
           product_id: @product.id
         ).destroy
+        @List.quantity=@List.quantity-1
+        @List.update_attribute(:quantity, @List.quantity)
          render json: { message: "Product succesfully removed from list" }, status: 200
          @User = @current_user
          @all= @User.lists
@@ -42,7 +44,8 @@ end
         product_id: @product.id)
       @association.update_attribute(:quantity, params[:quantity])
       puts(@association.quantity)
-
+      @List.quantity=@List.quantity+1
+      @List.update_attribute(:quantity, @List.quantity)
       render json: {status: "added product successfully"}, status: 201
       @lists=List.all
       @products=@List.products

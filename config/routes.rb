@@ -3,17 +3,17 @@ Rails.application.routes.draw do
     namespace 'v1' do
       mount ActionCable.server => '/cable'
       resources :lists  do
-        collection do
-          post 'add'
-        end
-
         member do
           get 'products'
         end
      
       end
       resources :listusers,  only: [:destroy] 
-      resources :listproducts, only: [:destroy] 
+      resources :listproducts do
+        collection do
+          post 'add'
+        end
+      end
       resources :products, only: [:show,:index,:create,:update] 
       resources :users, only: [:create,:index,:update,:show] do
         collection do

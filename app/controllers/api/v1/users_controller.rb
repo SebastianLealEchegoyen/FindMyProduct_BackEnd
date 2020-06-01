@@ -1,5 +1,8 @@
 class Api::V1::UsersController < ApplicationController
 
+            rescue_from ActiveRecord::RecordNotFound, :with => :task_not_found
+            before_action :authenticate_request!, except: [:login,:create]
+
     def index
             
         @users= User.all

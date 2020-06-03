@@ -29,6 +29,8 @@ class Api::V1::ListproductsController < ApplicationController
                list_id: list.id,
                product_id: product.id)
            json.product_quantity @help.quantity
+           json.product_descripcion @help.description
+           json.product_status @help.checked
            end
        end
      end
@@ -42,8 +44,9 @@ end
       @association= ListProduct.find_by(
         list_id: @List.id,
         product_id: @product.id)
+      @association.update_attribute(:description, params[:description])
       @association.update_attribute(:quantity, params[:quantity])
-      puts(@association.quantity)
+      @association.update_attribute(:checked, false)
       @List.quantity=@List.quantity+1
       @List.update_attribute(:quantity, @List.quantity)
       render json: {status: "added product successfully"}, status: 201
@@ -63,6 +66,8 @@ end
             list_id: list.id,
             product_id: product.id)
         json.product_quantity @help.quantity
+        json.product_descripcion @help.description
+        json.product_status @help.checked
         end
     end
   end
@@ -77,6 +82,7 @@ end
         product_id: @product.id)
       
       if @association.update_attribute(:quantity, params[:quantity])
+        @association.update_attribute(:description, params[:description])
         render json: {status: "product quantity updated"}, status: 201
         @User = @current_user
         @all= @User.lists
@@ -92,6 +98,8 @@ end
               list_id: list.id,
               product_id: product.id)
           json.product_quantity @help.quantity
+          json.product_descripcion @help.description
+           json.product_status @help.checked
           end
       end
     end
@@ -123,5 +131,10 @@ end
     private
     def quantity_params
       params.require(:listproduct).permit(:quantity)
+    end
+
+    private
+    def description_params
+      params.require(:listproduct).permit(:description)
     end
 end

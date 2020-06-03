@@ -31,6 +31,8 @@ def create
             list_id: list.id,
             product_id: product.id)
         json.product_quantity @help.quantity
+        json.product_descripcion @help.description
+        json.product_status @help.checked
         end
     end
   end
@@ -61,6 +63,8 @@ def create
               list_id: list.id,
               product_id: product.id)
           json.product_quantity @help.quantity
+          json.product_descripcion @help.description
+          json.product_status @help.checked
           end
       end
     end
@@ -96,6 +100,8 @@ def create
             list_id: list.id,
             product_id: product.id)
         json.product_quantity @help.quantity
+        json.product_descripcion @help.description
+        json.product_status @help.checked
         end
     end
   end

@@ -38,6 +38,7 @@ class Api::V1::UsersController < ApplicationController
         @confirmed_friends = User.confirmed_friends(@current_user)
         @pending_friends = User.pending_friends(@current_user)
         @requested_friends = User.requested_friends(@current_user)
+        puts @current_user.friend?(@user)
       end
 
       def lists

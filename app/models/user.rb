@@ -35,9 +35,8 @@ class User < ApplicationRecord
       user.requested_friends.select(:id, :username, :email, :phone).compact
     end
 
-    def friend_with?(other_user)
-      friendships.find_by(friend_id: other_user.id)
-      #current_user.friend_with? some_user
+    def friend?(other_user)
+      friends.include?(other_user) || inverse_friends.include?(other_user)
     end
 
 end

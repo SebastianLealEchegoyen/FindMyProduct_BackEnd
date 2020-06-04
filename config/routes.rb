@@ -15,14 +15,15 @@ Rails.application.routes.draw do
       resources :listusers,  only: [:destroy] 
       resources :listproducts, only: [:destroy] 
       resources :products, only: [:show,:index,:create,:update] 
-      resources :users, only: [:create,:index,:update,:show] do
+      resources :users, only: [:create,:index,:update, :show] do
         collection do
           post 'login'
+          resources :friendships, only: [:index, :create, :destroy, :update]
         end
         member do
           get 'lists'
         end
-        resources :frienships, only: [:create, :destroy]
+        #resources :frienships, only: [:create, :destroy]
     end
 end
 end

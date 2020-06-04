@@ -1,8 +1,5 @@
 class Api::V1::UsersController < ApplicationController
 
-  before_action :authenticate_request!, only: [:show]
-  before_action :load_current_user!, only: [:show]
-
     def index
             
         @users= User.all
@@ -35,10 +32,10 @@ class Api::V1::UsersController < ApplicationController
 
       def show
         @user = User.find_by(id: params[:id])
-        @confirmed_friends = User.confirmed_friends(@current_user)
-        @pending_friends = User.pending_friends(@current_user)
-        @requested_friends = User.requested_friends(@current_user)
-        puts @current_user.friend?(@user)
+        #@confirmed_friends = User.confirmed_friends(@current_user)
+        #@pending_friends = User.pending_friends(@current_user)
+        #@requested_friends = User.requested_friends(@current_user)
+        #puts @current_user.friend?(@user)
       end
 
       def lists

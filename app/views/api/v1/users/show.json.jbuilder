@@ -11,7 +11,4 @@ json.user do
     json.phone @user.phone
     json.photo @user.photo
   end
-  json.friends @confirmed_friends
-  json.pending_friends @pending_friends
-  json.requested_friends @requested_friends
 end

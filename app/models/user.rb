@@ -39,4 +39,8 @@ class User < ApplicationRecord
       friends.include?(other_user) || inverse_friends.include?(other_user)
     end
 
+    def pending?(other_user)
+      pending_friends.include?(other_user) || requested_friends.include?(other_user)
+    end
+
 end

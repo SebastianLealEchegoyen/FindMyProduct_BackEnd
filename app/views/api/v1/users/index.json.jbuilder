@@ -1,1 +1,1 @@
-json.users @users, :id, :username, :password, :email, :phone, :photo
+json.users @users, :id, :username, :email, :phone

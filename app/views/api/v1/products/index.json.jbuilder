@@ -1,1 +1,1 @@
-json.products @products, :id, :name, :category, :quantity, :photo
+json.products @products, :id, :name, :category, :photo

@@ -6,6 +6,7 @@ class Api::V1::UsersController < ApplicationController
     def index
             
         @users= User.all
+        #puts @users.friends
 
 
       end
@@ -34,7 +35,10 @@ class Api::V1::UsersController < ApplicationController
 
       def show
         @user = User.find_by(id: params[:id])
-
+        #@confirmed_friends = User.confirmed_friends(@current_user)
+        #@pending_friends = User.pending_friends(@current_user)
+        #@requested_friends = User.requested_friends(@current_user)
+        #puts @current_user.friend?(@user)
       end
 
       def lists

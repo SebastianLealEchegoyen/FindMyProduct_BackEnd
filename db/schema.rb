@@ -12,6 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2020_06_03_051638) do
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.boolean "confirmed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
   create_table "list_products", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "list_id", null: false
@@ -52,4 +62,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_051638) do
     t.boolean "is_Admin"
   end
 
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
 end

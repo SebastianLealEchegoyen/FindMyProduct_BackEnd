@@ -13,22 +13,35 @@ class Api::V1::ListsController < ApplicationController
 
 def create
     @list = List.new(list_params)
+    @list.quantity=0
     @current_user.lists << @list
     if @list.save
       render json: {status: "List created successfully"}, status: 201
-      #ActionCable.server.broadcast 'super_channel', user: @current_user.lists
-
+      @User = @current_user
+      @all= @User.lists
+      @message=
+        Jbuilder.encode  do |json|
+        json.info @all do |list|  
+        json.id list.id
+        json.name list.name
+        json.products list.products do |product|
+        json.product_id product.id
+        json.product_name product.name
+        @help= @association= ListProduct.find_by(
+            list_id: list.id,
+            product_id: product.id)
+        json.product_quantity @help.quantity
+        json.product_descripcion @help.description
+        json.product_status @help.checked
+        end
+    end
+  end
+    ActionCable.server.broadcast 'super_channel', message: @message
     else
       render :json => { :errors => @list.errors.full_messages }, status: :bad_request
     end
   end
 
-  def add
-    @List = List.find_by(id: params[:id])
-    @product= Product.find_by(name: params[:name])
-    @List.products << @product
-    render json: {status: "added product successfully"}, status: 201
-  end
 
   def update
     
@@ -36,6 +49,26 @@ def create
 
       if @List.update(list_params)
         render json: {status: "list updated"}, status: 201
+        @User = @current_user
+        @all= @User.lists
+        @message=
+          Jbuilder.encode  do |json|
+          json.info @all do |list|  
+          json.id list.id
+          json.name list.name
+          json.products list.products do |product|
+          json.product_id product.id
+          json.product_name product.name
+          @help= @association= ListProduct.find_by(
+              list_id: list.id,
+              product_id: product.id)
+          json.product_quantity @help.quantity
+          json.product_descripcion @help.description
+          json.product_status @help.checked
+          end
+      end
+    end
+      ActionCable.server.broadcast 'super_channel', message: @message
       else
         render :json => { :errors => @list.errors.full_messages }, status: 400
       end
@@ -44,6 +77,7 @@ def create
 
   def products
     @list = List.find_by(id: params[:id])
+  
     
   end
 
@@ -52,6 +86,26 @@ def create
     @List= List.find(params[:id])
     if @List.destroy
       render json: { message: "List Successfully Deleted." }, status: 200
+      @User = @current_user
+      @all= @User.lists
+      @message=
+        Jbuilder.encode  do |json|
+        json.info @all do |list|  
+        json.id list.id
+        json.name list.name
+        json.products list.products do |product|
+        json.product_id product.id
+        json.product_name product.name
+        @help= @association= ListProduct.find_by(
+            list_id: list.id,
+            product_id: product.id)
+        json.product_quantity @help.quantity
+        json.product_descripcion @help.description
+        json.product_status @help.checked
+        end
+    end
+  end
+    ActionCable.server.broadcast 'super_channel', message: @message
     else
       list_not_found
     end
@@ -65,7 +119,7 @@ def create
 
   private
   def list_params
-    params.require(:list).permit(:name, :quantity)
+    params.require(:list).permit(:name)
   end
 
 

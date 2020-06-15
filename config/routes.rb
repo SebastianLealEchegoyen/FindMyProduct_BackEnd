@@ -28,6 +28,11 @@ Rails.application.routes.draw do
           post 'login'
           resources :friendships, only: [:index, :create, :destroy, :update]
         end
+
+        collection do
+          get 'search'
+        end
+
         member do
           get 'lists'
         end

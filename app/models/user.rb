@@ -1,6 +1,8 @@
 class User < ApplicationRecord
     has_many :list_users
     has_many :lists, through: :list_users
+
+    scope :search_name, ->(username) { where("username LIKE ?", "%"+username+"%" ) }  
     
     has_secure_password
     validates :username, presence: true, uniqueness: true

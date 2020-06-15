@@ -45,6 +45,14 @@ class Api::V1::UsersController < ApplicationController
         @user = User.find_by(id: params[:id])
         
       end
+
+      def search
+        @query=User.all
+        if params[:filter]
+          @query = User.search_name(params[:filter])
+        end
+        
+      end
     
       private
       def user_params

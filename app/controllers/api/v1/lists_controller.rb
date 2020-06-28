@@ -79,11 +79,17 @@ def create
   
   end
 
-  #Muestra los productos de una lista
-  def products
+ 
+      #Mostrar los usuarios de una lista
+      def users
+        @list = List.find_by(id: params[:id])
+        
+      end
+
+   #Muestra los productos de una lista
+   def users
     @list = List.find_by(id: params[:id])
   
-    
   end
 
 #Elimina una lista

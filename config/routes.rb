@@ -6,6 +6,10 @@ Rails.application.routes.draw do
         member do
           get 'products'
         end
+
+        member do
+          get 'users'
+        end
      
       end
       resources :listusers do

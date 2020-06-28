@@ -22,7 +22,11 @@ Rails.application.routes.draw do
           post 'check'
         end
       end
-      resources :products, only: [:show,:index,:create,:update] 
+      resources :products, only: [:show,:index,:create,:update]  do
+        collection do
+          get 'search'
+        end
+      end
       resources :users, only: [:create,:index,:update, :show] do
         collection do
           post 'login'

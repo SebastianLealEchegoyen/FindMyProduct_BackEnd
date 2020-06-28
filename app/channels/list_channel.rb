@@ -19,6 +19,7 @@ class ListChannel < ApplicationCable::Channel
       json.info @all do |list|  
       json.id list.id
       json.name list.name
+      json.creation list.created_at
       json.products list.products do |product|
       json.product_id product.id
       json.product_name product.name

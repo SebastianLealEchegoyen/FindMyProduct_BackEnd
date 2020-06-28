@@ -16,6 +16,15 @@ class Api::V1::ProductsController < ApplicationController
         @product = Product.find_by(id: params[:id])
       end
 
+         #Buscar un product
+         def search
+          @query=Product.all
+          if params[:filter]
+            @query = Product.search_name(params[:filter])
+          end
+          
+        end
+
       #Crear un producto (Admin only)
       def create
         if @current_user.is_Admin?

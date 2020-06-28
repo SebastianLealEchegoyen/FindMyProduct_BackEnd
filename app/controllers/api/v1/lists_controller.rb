@@ -4,6 +4,7 @@ class Api::V1::ListsController < ApplicationController
             before_action :authenticate_request!, except: [:index,:show]
             before_action :load_current_user!, only: [:create]
 
+  #Muestra todas las listas
     def index
             
         @lists= List.all
@@ -11,6 +12,7 @@ class Api::V1::ListsController < ApplicationController
 
       end
 
+#Elimina un producto de una lista
 def create
     @list = List.new(list_params)
     @list.quantity=0
@@ -42,7 +44,7 @@ def create
     end
   end
 
-
+#Elimina un producto de una lista
   def update
     
       @List=List.find_by(id: params[:id])
@@ -75,13 +77,14 @@ def create
   
   end
 
+  #Muestra los productos de una lista
   def products
     @list = List.find_by(id: params[:id])
   
     
   end
 
-
+#Elimina una lista
   def destroy
     @List= List.find(params[:id])
     if @List.destroy
@@ -112,6 +115,7 @@ def create
  
   end
 
+  #Muestra una lista
   def show
     @list = List.find_by(id: params[:id])
 

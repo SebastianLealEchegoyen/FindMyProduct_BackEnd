@@ -4,6 +4,7 @@ class Api::V1::ListusersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, :with => :task_not_found
     before_action :authenticate_request!
 
+    #Elimina un usuario de una lista
     def destroy
         @user = User.find_by(id: params[:id])
         @List= List.find_by(name: params[:name])
@@ -14,6 +15,7 @@ class Api::V1::ListusersController < ApplicationController
         render json: {status: "deleted friend drom the list successfully"}, status: 201
     end
 
+    #Agrega un usuario de una lista
     def add
       @user = User.find_by(id: params[:id])
       @List= List.find_by(name: params[:name])

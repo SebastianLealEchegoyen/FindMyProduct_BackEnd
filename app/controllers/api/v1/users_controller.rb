@@ -3,6 +3,7 @@ class Api::V1::UsersController < ApplicationController
             rescue_from ActiveRecord::RecordNotFound, :with => :task_not_found
             before_action :authenticate_request!, except: [:login,:create]
 
+  #Muestra todos los usuarios
     def index
             
         @users= User.all
@@ -11,6 +12,7 @@ class Api::V1::UsersController < ApplicationController
 
       end
 
+#Crea un usuario
       def create
         @user = User.new(user_params)
          if(@user.is_Admin==nil)
@@ -23,6 +25,7 @@ class Api::V1::UsersController < ApplicationController
         end
       end
     
+      #Login
       def login
         @user = User.find_by(email: params[:email])
         if @user && @user.authenticate(params[:password])
@@ -33,6 +36,7 @@ class Api::V1::UsersController < ApplicationController
         end
       end
 
+      #Mostrar un usuario
       def show
         @user = User.find_by(id: params[:id])
         #@confirmed_friends = User.confirmed_friends(@current_user)
@@ -41,11 +45,13 @@ class Api::V1::UsersController < ApplicationController
         #puts @current_user.friend?(@user)
       end
 
+      #Mostrar las listas de un usuario
       def lists
         @user = User.find_by(id: params[:id])
         
       end
 
+      #Buscar un usuario
       def search
         @query=User.all
         if params[:filter]

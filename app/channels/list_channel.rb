@@ -1,13 +1,15 @@
 class ListChannel < ApplicationCable::Channel
  
-
+#El canal que se debera suscribir la aplicacion para recibir data.
   def subscribed
      stream_from "super_channel"
   end
 
+#que hacer cuando el usuario sale del canal
   def unsubscribed
   end
 
+#La informacion a mandar cuando se entra a canal
   def message(data)
     @num=data['id'].to_i
     @user=User.find(@num)

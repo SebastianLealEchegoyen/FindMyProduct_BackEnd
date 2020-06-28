@@ -5,6 +5,7 @@ class Api::V1::ListproductsController < ApplicationController
     before_action :authenticate_request!, except: [:show]
     before_action :load_current_user!, only: [:create,:update,:add,:update]
 
+    #Elimina un producto de una lista
     def destroy
         @List = List.find_by(id: params[:id])
         @product= Product.find_by(name: params[:name])   
@@ -37,6 +38,8 @@ class Api::V1::ListproductsController < ApplicationController
        ActionCable.server.broadcast 'super_channel', message: @message
       
 end
+
+ #Agregar un producto a una lista
     def add
       @List = List.find_by(id: params[:id])
       @product= Product.find_by(name: params[:name])
@@ -74,6 +77,7 @@ end
     ActionCable.server.broadcast 'super_channel', message: @message
   end
 
+   #Actualizar un producto de una lista
     def update
       @List = List.find_by(id: params[:id])
       @product= Product.find_by(name: params[:name])
@@ -110,6 +114,7 @@ end
   
   end
 
+   #Marca un producto de una lista[Le aplica un marca]
   def check
     @List = List.find_by(id: params[:id])
     @product= Product.find_by(name: params[:name])
@@ -167,6 +172,7 @@ end
 
 end
 
+ #Mostrar las listas con productos de una
   def show
     @User = User.find_by(id: params[:id])
     @List= @User.lists

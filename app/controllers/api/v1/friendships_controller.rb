@@ -4,10 +4,12 @@ class Api::V1::FriendshipsController < ApplicationController
   before_action :load_current_user!
   before_action :set_friendship, only: [:update, :destroy]
 
+  #Muestra las amistades del usuario.
   def index
     @user = @current_user
   end
 
+  #Enviar solicitud de amistad.
   def create
     @other_user = User.find(params[:friend_id])
     if @current_user.friend?(@other_user) || @current_user.id == @other_user.id
@@ -23,7 +25,8 @@ class Api::V1::FriendshipsController < ApplicationController
       end
     end
   end
-
+ 
+  #Aceptar la solicitud de amigo/
   def update
     @other_user = User.find(params[:friend_id])
     if @current_user.requested_friends.include?(@other_user)
@@ -38,6 +41,7 @@ class Api::V1::FriendshipsController < ApplicationController
     end
   end
 
+  #Eliminar amigo o solicitud de amigo
   def destroy
     if @friendship.destroy
       render json: { message: "friendship successfully deleted." }, status: 200

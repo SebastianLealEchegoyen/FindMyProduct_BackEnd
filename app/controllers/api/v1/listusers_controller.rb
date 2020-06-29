@@ -30,6 +30,7 @@ class Api::V1::ListusersController < ApplicationController
         json.info @all do |list|  
         json.id list.id
         json.name list.name
+        json.creation list.created_at
         json.users list.users do |user|
           json.user_id user.id
           json.username user.username

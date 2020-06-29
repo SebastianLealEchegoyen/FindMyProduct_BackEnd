@@ -1,3 +1,3 @@
 @list=@user.lists
 
-json.lists  @list, :id, :name, :products
+json.lists  @list, :id, :name, :created_at, :products

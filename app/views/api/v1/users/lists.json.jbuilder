@@ -1,4 +1,4 @@
-@list=@user.lists
+
 
 json.info @all do |list|  
     json.id list.id
@@ -18,5 +18,4 @@ json.info @all do |list|
     json.product_descripcion @help.description
      json.product_status @help.checked
     end
-end
 end

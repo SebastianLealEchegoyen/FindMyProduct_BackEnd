@@ -48,8 +48,7 @@ class Api::V1::UsersController < ApplicationController
       #Mostrar las listas de un usuario
       def lists
         @user = User.find_by(id: params[:id])
-        @all= @User.lists
-        
+        @all= @user.lists
       end
 
       #Buscar un usuario

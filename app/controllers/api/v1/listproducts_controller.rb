@@ -16,14 +16,17 @@ class Api::V1::ListproductsController < ApplicationController
         @List.quantity=@List.quantity-1
         @List.update_attribute(:quantity, @List.quantity)
          render json: { message: "Product succesfully removed from list" }, status: 200
-         @User = @current_user
-         @all= @User.lists
+         @all= List.all
          @message=
            Jbuilder.encode  do |json|
            json.info @all do |list|  
            json.id list.id
            json.name list.name
            json.creation list.created_at
+           json.users list.users do |user|
+           json.user_id user.id
+           json.username user.username
+           end
            json.products list.products do |product|
            json.product_id product.id
            json.product_name product.name
@@ -34,6 +37,7 @@ class Api::V1::ListproductsController < ApplicationController
            json.product_descripcion @help.description
            json.product_status @help.checked
            end
+           
        end
      end
        ActionCable.server.broadcast 'super_channel', message: @message
@@ -56,26 +60,30 @@ end
       render json: {status: "added product successfully"}, status: 201
       @lists=List.all
       @products=@List.products
-      @User = @current_user
-      @all= @User.lists
-      @message=
-        Jbuilder.encode  do |json|
-        json.info @all do |list|  
-        json.id list.id
-        json.name list.name
-        json.creation list.created_at
-        json.products list.products do |product|
-        json.product_id product.id
-        json.product_name product.name
-        @help= @association= ListProduct.find_by(
-            list_id: list.id,
-            product_id: product.id)
-        json.product_quantity @help.quantity
-        json.product_descripcion @help.description
-        json.product_status @help.checked
-        end
-    end
+      @all= List.all
+    @message=
+      Jbuilder.encode  do |json|
+      json.info @all do |list|  
+      json.id list.id
+      json.name list.name
+      json.creation list.created_at
+      json.users list.users do |user|
+      json.user_id user.id
+      json.username user.username
+      end
+      json.products list.products do |product|
+      json.product_id product.id
+      json.product_name product.name
+      @help= @association= ListProduct.find_by(
+          list_id: list.id,
+          product_id: product.id)
+      json.product_quantity @help.quantity
+      json.product_descripcion @help.description
+      json.product_status @help.checked
+      end
+      
   end
+end
     ActionCable.server.broadcast 'super_channel', message: @message
   end
 
@@ -90,26 +98,30 @@ end
       if @association.update_attribute(:quantity, params[:quantity])
         @association.update_attribute(:description, params[:description])
         render json: {status: "product quantity updated"}, status: 201
-        @User = @current_user
-        @all= @User.lists
-        @message=
-          Jbuilder.encode  do |json|
-          json.info @all do |list|  
-          json.id list.id
-          json.name list.name
-          json.creation list.created_at
-          json.products list.products do |product|
-          json.product_id product.id
-          json.product_name product.name
-          @help= @association= ListProduct.find_by(
-              list_id: list.id,
-              product_id: product.id)
-          json.product_quantity @help.quantity
-          json.product_descripcion @help.description
-           json.product_status @help.checked
-          end
+        @all= List.all
+    @message=
+      Jbuilder.encode  do |json|
+      json.info @all do |list|  
+      json.id list.id
+      json.name list.name
+      json.creation list.created_at
+      json.users list.users do |user|
+      json.user_id user.id
+      json.username user.username
       end
-    end
+      json.products list.products do |product|
+      json.product_id product.id
+      json.product_name product.name
+      @help= @association= ListProduct.find_by(
+          list_id: list.id,
+          product_id: product.id)
+      json.product_quantity @help.quantity
+      json.product_descripcion @help.description
+      json.product_status @help.checked
+      end
+      
+  end
+end
       ActionCable.server.broadcast 'super_channel', message: @message
       else
         render :json => { :errors => @list.errors.full_messages }, status: 400
@@ -128,14 +140,17 @@ end
     if @association.checked
       @association.update_attribute(:checked, false)
       render json: {status: "delisted product"}, status: 201
-      @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
         json.id list.id
         json.name list.name
         json.creation list.created_at
+        json.users list.users do |user|
+        json.user_id user.id
+        json.username user.username
+        end
         json.products list.products do |product|
         json.product_id product.id
         json.product_name product.name
@@ -144,22 +159,26 @@ end
             product_id: product.id)
         json.product_quantity @help.quantity
         json.product_descripcion @help.description
-         json.product_status @help.checked
+        json.product_status @help.checked
         end
+        
     end
   end
     ActionCable.server.broadcast 'super_channel', message: @message
     else
       @association.update_attribute(:checked, true)
       render json: {status: "listed product"}, status: 201
-      @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
         json.id list.id
         json.name list.name
         json.creation list.created_at
+        json.users list.users do |user|
+        json.user_id user.id
+        json.username user.username
+        end
         json.products list.products do |product|
         json.product_id product.id
         json.product_name product.name
@@ -168,8 +187,9 @@ end
             product_id: product.id)
         json.product_quantity @help.quantity
         json.product_descripcion @help.description
-         json.product_status @help.checked
+        json.product_status @help.checked
         end
+        
     end
   end
     ActionCable.server.broadcast 'super_channel', message: @message

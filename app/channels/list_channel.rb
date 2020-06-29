@@ -11,15 +11,17 @@ class ListChannel < ApplicationCable::Channel
 
 #La informacion a mandar cuando se entra a canal
   def message(data)
-    @num=data['id'].to_i
-    @user=User.find(@num)
-    @all= @user.lists
+    @all= List.all
     @message=
       Jbuilder.encode  do |json|
       json.info @all do |list|  
       json.id list.id
       json.name list.name
       json.creation list.created_at
+      json.users list.users do |user|
+      json.user_id user.id
+      json.username user.username
+      end
       json.products list.products do |product|
       json.product_id product.id
       json.product_name product.name
@@ -30,6 +32,7 @@ class ListChannel < ApplicationCable::Channel
       json.product_descripcion @help.description
       json.product_status @help.checked
       end
+      
   end
 end
   ActionCable.server.broadcast 'super_channel', message: @message

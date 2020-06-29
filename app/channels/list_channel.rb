@@ -14,7 +14,10 @@ class ListChannel < ApplicationCable::Channel
     @num=data['id'].to_i
     @user=User.find(@num)
     @all= @user.lists
-    @message= ""
+    @message= 
+      Jbuilder.encode  do |json|
+        json.info @user, :id
+      end
      # Jbuilder.encode  do |json|
      # json.info @all do |list|  
      # json.id list.id

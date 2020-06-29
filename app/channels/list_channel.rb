@@ -11,7 +11,9 @@ class ListChannel < ApplicationCable::Channel
 
 #La informacion a mandar cuando se entra a canal
   def message(data)
-    @all= List.all
+    @num=data['id'].to_i
+    @user=User.find(@num)
+    @all= @user.lists
     @message=
       Jbuilder.encode  do |json|
       json.info @all do |list|  

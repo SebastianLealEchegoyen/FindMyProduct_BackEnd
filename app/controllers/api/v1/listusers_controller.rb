@@ -15,7 +15,7 @@ class Api::V1::ListusersController < ApplicationController
         render json: {status: "deleted friend drom the list successfully"}, status: 201
     end
 
-    #Agrega un usuario de una lista
+    #Agrega un usuario a una lista
     def add
       @user = User.find_by(id: params[:id])
       @List= List.find_by(name: params[:name])
@@ -23,17 +23,17 @@ class Api::V1::ListusersController < ApplicationController
       render json: {status: "added friend to the list successfully"}, status: 201
       @lists=List.all
       @products=@List.products
-      @all= List.all
+      @User = @user
+      @all= @User.lists
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
         json.id list.id
         json.name list.name
-        json.creation list.created_at
         json.users list.users do |user|
-        json.user_id user.id
-        json.username user.username
-        end
+          json.user_id user.id
+          json.username user.username
+          end
         json.products list.products do |product|
         json.product_id product.id
         json.product_name product.name
@@ -44,7 +44,6 @@ class Api::V1::ListusersController < ApplicationController
         json.product_descripcion @help.description
         json.product_status @help.checked
         end
-        
     end
   end
     ActionCable.server.broadcast 'super_channel', message: @message

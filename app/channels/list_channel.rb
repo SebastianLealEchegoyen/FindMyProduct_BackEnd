@@ -13,7 +13,7 @@ class ListChannel < ApplicationCable::Channel
   def message(data)
     @num=data['id'].to_i
     @user=User.find(@num)
-    @all= @user.lists
+    @all= List.all
     @message= 
      # Jbuilder.encode  do |json|
      #  json.info @user, :id

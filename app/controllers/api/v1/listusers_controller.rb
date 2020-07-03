@@ -24,7 +24,7 @@ class Api::V1::ListusersController < ApplicationController
       @lists=List.all
       @products=@List.products
       @User = @user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  

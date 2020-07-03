@@ -17,7 +17,7 @@ class Api::V1::ListproductsController < ApplicationController
         @List.update_attribute(:quantity, @List.quantity)
          render json: { message: "Product succesfully removed from list" }, status: 200
          @User = @current_user
-         @all= @User.lists
+         @all= List.all
          @message=
            Jbuilder.encode  do |json|
            json.info @all do |list|  
@@ -61,7 +61,7 @@ end
       @lists=List.all
       @products=@List.products
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
@@ -99,7 +99,7 @@ end
         @association.update_attribute(:description, params[:description])
         render json: {status: "product quantity updated"}, status: 201
         @User = @current_user
-        @all= @User.lists
+        @all= List.all
         @message=
           Jbuilder.encode  do |json|
           json.info @all do |list|  
@@ -141,7 +141,7 @@ end
       @association.update_attribute(:checked, false)
       render json: {status: "delisted product"}, status: 201
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
@@ -169,7 +169,7 @@ end
       @association.update_attribute(:checked, true)
       render json: {status: "listed product"}, status: 201
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  

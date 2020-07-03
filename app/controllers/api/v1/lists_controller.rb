@@ -20,7 +20,7 @@ def create
     if @list.save
       render json: {status: "List created successfully"}, status: 201
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
@@ -57,7 +57,7 @@ def create
       if @List.update(list_params)
         render json: {status: "list updated"}, status: 201
         @User = @current_user
-        @all= @User.lists
+        @all= List.all
         @message=
           Jbuilder.encode  do |json|
           json.info @all do |list|  
@@ -106,7 +106,7 @@ def create
     if @List.destroy
       render json: { message: "List Successfully Deleted." }, status: 200
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  

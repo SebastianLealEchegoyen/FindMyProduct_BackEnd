@@ -1,0 +1,1 @@
+json.product @query, :id, :name, :category, :photo

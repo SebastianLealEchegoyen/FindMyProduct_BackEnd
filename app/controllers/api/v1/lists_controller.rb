@@ -20,13 +20,17 @@ def create
     if @list.save
       render json: {status: "List created successfully"}, status: 201
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
         json.id list.id
         json.name list.name
         json.creation list.created_at
+        json.users list.users do |user|
+          json.user_id user.id
+          json.username user.username
+          end
         json.products list.products do |product|
         json.product_id product.id
         json.product_name product.name
@@ -35,7 +39,7 @@ def create
             product_id: product.id)
         json.product_quantity @help.quantity
         json.product_descripcion @help.description
-        json.product_status @help.checked
+         json.product_status @help.checked
         end
     end
   end
@@ -53,13 +57,17 @@ def create
       if @List.update(list_params)
         render json: {status: "list updated"}, status: 201
         @User = @current_user
-        @all= @User.lists
+        @all= List.all
         @message=
           Jbuilder.encode  do |json|
           json.info @all do |list|  
           json.id list.id
           json.name list.name
           json.creation list.created_at
+          json.users list.users do |user|
+            json.user_id user.id
+            json.username user.username
+            end
           json.products list.products do |product|
           json.product_id product.id
           json.product_name product.name
@@ -68,7 +76,7 @@ def create
               product_id: product.id)
           json.product_quantity @help.quantity
           json.product_descripcion @help.description
-          json.product_status @help.checked
+           json.product_status @help.checked
           end
       end
     end
@@ -98,13 +106,17 @@ def create
     if @List.destroy
       render json: { message: "List Successfully Deleted." }, status: 200
       @User = @current_user
-      @all= @User.lists
+      @all= List.all
       @message=
         Jbuilder.encode  do |json|
         json.info @all do |list|  
         json.id list.id
         json.name list.name
         json.creation list.created_at
+        json.users list.users do |user|
+          json.user_id user.id
+          json.username user.username
+          end
         json.products list.products do |product|
         json.product_id product.id
         json.product_name product.name
@@ -113,7 +125,7 @@ def create
             product_id: product.id)
         json.product_quantity @help.quantity
         json.product_descripcion @help.description
-        json.product_status @help.checked
+         json.product_status @help.checked
         end
     end
   end

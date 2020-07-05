@@ -1,7 +1,0 @@
-<component name="CopyrightManager">
-  <copyright>
-    <option name="allowReplaceRegexp" value="2020" />
-    <option name="notice" value="FindMyProduct API&#10;Copyright (C) 2020  00198216&#10;&#10;This program is free software: you can redistribute it and/or modify it under&#10;the terms of the GNU General Public License as published by the Free Software&#10;Foundation, version 3 of the License.&#10;&#10;This program is distributed in the hope that it will be useful, but WITHOUT ANY&#10;WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS&#10;FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.&#10;&#10;You should have received a copy of the GNU General Public License along with&#10;this program. If not, see &lt;https://www.gnu.org/licenses/&gt;." />
-    <option name="myName" value="Standard License Header" />
-  </copyright>
-</component>

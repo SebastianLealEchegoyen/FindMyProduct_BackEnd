@@ -33,3 +33,6 @@
 
 # Ignore path file
 /path
+
+#Ignore IntelliJ IDEA
+.idea
